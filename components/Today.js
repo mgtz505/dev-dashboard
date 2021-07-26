@@ -6,6 +6,7 @@ import util from "util"
 import useDeepCompareEffect from "use-deep-compare-effect"
 import chalk from "chalk"
 import gradient from "gradient-string"
+import Box from "./Box"
 
 const findWeather = util.promisify(weather.find)
 
@@ -68,7 +69,13 @@ const formatWeather = ([ results ]) => {
 }
 
 
-export default function Today ({ updateInterval = 900000, search = "New York, NY", degreeType = "F" }) {  //15 minutes
+export default function Today ({
+     updateInterval = 900000,
+    search = "New York, NY",
+    degreeType = "F",
+    top,left,width, height 
+}) {  //15 minutes
+const boxProps = { top, left, width, height };
 const [fontIndex, setFontIndex] = useState(0)
 
 const [now, setNow] = useState(new Date())
@@ -134,13 +141,9 @@ const time = figlet.textSync( now.toLocaleString(
     font: FONTS[fontIndex % FONTS.length]
 })
 
-    return <box
-    top="center"
-    left="center"
-    width="50%"
-    height="50%"
-    border={{ type: "line"}}
-    style={{border: {fg: "blue"}}}
+    return <Box
+    {...boxProps}
+    label="Today"
     >
         <text right={1}>{`Today is ${chalk.blue(date)}`}</text>
         <text left="center" top="center">{gradient.atlas.multiline(time)}</text>
@@ -149,5 +152,5 @@ const time = figlet.textSync( now.toLocaleString(
     
     
     
-   </box>
+   </Box>
 }
