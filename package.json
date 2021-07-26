@@ -1,0 +1,29 @@
+{
+  "name": "dev-dash",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index",
+    "lint": "eslint ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.8",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/register": "^7.14.5",
+    "@use-it/interval": "^1.0.0",
+    "blessed": "^0.1.81",
+    "eslint": "^7.31.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "figlet": "^1.5.0",
+    "react": "^17.0.2",
+    "react-blessed": "^0.7.2",
+    "weather-js": "^2.0.0"
+  }
+}
