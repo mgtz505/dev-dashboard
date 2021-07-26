@@ -1,8 +1,10 @@
-import React, { useState} from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import useInterval from "@use-it/interval"
 import figlet from "figlet"
+import weather from "weather-js"
+import util from "util"
 
-
+const findWeather = util.promisify(weather.find)
 
 const FONTS = [
     "Straight",
@@ -19,15 +21,36 @@ const FONTS = [
 ]
 
 
-export default function Today ({ updateInterval = 1000 }) {
+export default function Today ({ updateInterval = 900000, search = "New York, NY", degreeType = "F" }) {  //15 minutes
 const [fontIndex, setFontIndex] = useState(0)
 
+const [now, setNow] = useState(new Date())
+
+const [weather, setWeather] = useState({
+    status: "loading",
+    error: null,
+    data: null
+})
+
+const fetchWeather = useCallback(async () => {
+    setWeather({ status: "loading", error: null, data: null})
+    let data;
+    try {
+        data = await findWeather({ search, degreeType})
+        setWeather({ status: "complete", error: null, data})
+    } catch( error ) {
+        setWeather({ status: "error", error, data: null})
+    }
+}, [search, degreeType])
+
+useEffect(() => {
+    fetchWeather()
+},[fetchWeather])
+
 useInterval(() => {
-    setFontIndex(fontIndex + 1)
-}, updateInterval) 
+    setNow(new Date())
+}, 60000)   //1 Minute
 
-
-const now = new Date()
 const date = now.toLocaleString(
     "en-US",
     {
