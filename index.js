@@ -7,5 +7,6 @@ require("@babel/register")({
         "@babel/plugin-transform-runtime"
     ]
 })
-
+const { hijackEffects } = require("stop-runaway-react-effects")
+hijackEffects();
 require ("./dashboard")
