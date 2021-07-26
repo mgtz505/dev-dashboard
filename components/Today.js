@@ -141,10 +141,13 @@ const time = figlet.textSync( now.toLocaleString(
     height="50%"
     border={{ type: "line"}}
     style={{border: {fg: "blue"}}}
-    >{`Today is ${chalk.blue(date)}
+    >
+        <text right={1}>{`Today is ${chalk.blue(date)}`}</text>
+        <text left="center" top="center">{gradient.atlas.multiline(time)}</text>
+        <text left={1} top="100%-3">{weather.status === "loading" ? "Loading..." : weather.error ? `Error: ${weather.error}` : formatWeather(weather.data) }</text>
+        
     
     
-   ${gradient.atlas.multiline(time)}
-   
-   ${weather.status === "loading" ? "Loading..." : weather.error ? `Error: ${weather.error}` : formatWeather(weather.data) }`}</box>
+    
+   </box>
 }
