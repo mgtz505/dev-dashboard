@@ -20,6 +20,17 @@ const FONTS = [
     "Small Shadow"
 ]
 
+const formatWeather = ([ results ]) => {
+    const { location, current, forecast } = results
+    
+    const temperature = `${current.temperature}°F`
+    const conditions = current.skytext
+    const low = `${forecast[1].low}°F`
+    const high = `${forecast[1].high}°F`
+
+    return `${temperature} and ${conditions} (${low} -> ${high})`
+}
+
 
 export default function Today ({ updateInterval = 900000, search = "New York, NY", degreeType = "F" }) {  //15 minutes
 const [fontIndex, setFontIndex] = useState(0)
@@ -50,6 +61,11 @@ useEffect(() => {
 useInterval(() => {
     setNow(new Date())
 }, 60000)   //1 Minute
+
+
+useInterval(() => {
+    fetchWeather()
+}, updateInterval)
 
 const date = now.toLocaleString(
     "en-US",
@@ -82,5 +98,7 @@ const time = figlet.textSync( now.toLocaleString(
     >{`Today is ${date}
     
     
-   ${time}`}</box>
+   ${time}
+   
+   ${weather.status === "loading" ? "Loading..." : weather.error ? `Error: ${weather.error}` : formatWeather(weather.data) }`}</box>
 }
