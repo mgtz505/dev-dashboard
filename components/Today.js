@@ -4,6 +4,8 @@ import figlet from "figlet"
 import weather from "weather-js"
 import util from "util"
 import useDeepCompareEffect from "use-deep-compare-effect"
+import chalk from "chalk"
+import graident from "gradient-string"
 
 const findWeather = util.promisify(weather.find)
 
@@ -62,7 +64,7 @@ const formatWeather = ([ results ]) => {
     const low = `${forecast[1].low}°F`
     const high = `${forecast[1].high}°F`
 
-    return `${temperature} and ${conditions} (${low} -> ${high})`
+    return `${chalk.yellow(temperature)} and ${chalk.green(conditions)} (${chalk.blue(low)} -> ${chalk.red(high)})`
 }
 
 
@@ -139,7 +141,7 @@ const time = figlet.textSync( now.toLocaleString(
     height="50%"
     border={{ type: "line"}}
     style={{border: {fg: "blue"}}}
-    >{`Today is ${date}
+    >{`Today is ${chalk.blue(date)}
     
     
    ${time}
