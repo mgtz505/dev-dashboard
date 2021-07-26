@@ -5,7 +5,7 @@ import weather from "weather-js"
 import util from "util"
 import useDeepCompareEffect from "use-deep-compare-effect"
 import chalk from "chalk"
-import graident from "gradient-string"
+import gradient from "gradient-string"
 
 const findWeather = util.promisify(weather.find)
 
@@ -144,7 +144,7 @@ const time = figlet.textSync( now.toLocaleString(
     >{`Today is ${chalk.blue(date)}
     
     
-   ${time}
+   ${gradient.atlas.multiline(time)}
    
    ${weather.status === "loading" ? "Loading..." : weather.error ? `Error: ${weather.error}` : formatWeather(weather.data) }`}</box>
 }
